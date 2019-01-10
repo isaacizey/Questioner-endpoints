@@ -1,58 +1,27 @@
 """ meetup views"""
 from flask import Blueprint, request, jsonify, make_response
+from app.api.v1.models.meetups_model import MeetupModel
+from app.api.v1.models.meetups_model import Meetups
+from flask import Flask, request, jsonify
 
+db = MeetupModel()
 
-meetup = Blueprint('MEETUP', __name__)
+MEETUP = Blueprint('MEETUP', __name__)
 
-meetups = {}
-Meetup = {}
-
-
-@meetup.route('/meetups/<meetup-id>', methods = ['GET'])
-def specific_meetup():
-    '''  '''
-
-    output = []
-
-    for meetup in meetups:
-        
-        meetup_content = {}
-        meetup_content['id'] = meetup.id
-        meetup_content['topic'] = meetup.topic
-        meetup_content['location'] = meetup.location
-        meetup_content['happeningOn'] = meetup.date
-        meetup_content['tags'] = meetup.tags
-        output.append(meetup_content)
-        return jsonify({'status' : 200, 'user' : output})
-        
-
-@app.route('/parcels', methods=['POST'])
+@MEETUP.route('/meetups', methods=['POST'])
 def create_user():
     data = request.get_json()
 
-    hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-    user = User(username=data['username'], email=data['email'], password=hashed_password)
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'status' : 200,'message' : 'order created'})
 
+    print(data) 
 
-@meetup.route('/meetups/', methods=['POST'])
-def new_meetup():
-    ''' this endpoint registers a meetup '''
-    data = request.get_json()
-
-    meetup = Meetup (username = data[''])
-
-    output = []
-
-    for meetup in meetups:
-        
-        meetup_content = {}
-        meetup_content['id'] = meetup.id
-        meetup_content['topic'] = meetup.topic
-        meetup_content['location'] = meetup.location
-        meetup_content['happeningOn'] = meetup.date
-        meetup_content['tags'] = meetup.tags
-        output.append(meetup_content)
-        return jsonify({'status' : 200, 'user' : output})
+    id = data['id']
+    location = data['location']
+    createdOn = data['createdOn']
+    images = data['images']
+    topics = data['topics']
+    happeningOn = data['happeningOn']
+    tags = data['tags']
+    data = db.add_meetup(id, location, createdOn, images, topics, happeningOn, tags )
+   
+    return jsonify({'status' : 200,'message' : 'meetup created'})

@@ -1,36 +1,21 @@
-   
-"""model for view for meetups"""
-import datetime
+Meetups = [] 
 
-from flask import jsonify,request
-from flask_restful import Resource
-
-meetups = []
-
-
-class MeetupsModel():
-    """Class with methods to perform CRUD operations on the DB"""
+class MeetupModel(object):
+    '''models for meetups class'''
 
     def __init__(self):
-        self.db = meetups
-        if len(meetups) == 0:
-            self.id = 1
-        else:
-            self.id = meetups[-1]['id'] + 1
-        self.id = len(meetups) + 1
+        self.db = Meetups
 
-    def save(self):
-        data = {
-            'id': self.id,
-            'createdOn': datetime.datetime.utcnow(),
-            'location': request.json.get('location'),
-            'Topic': request.json.get('topic'),
-            'happeningOn': request.json.get('happeningOn'),
-            'tags': request.json.get('tags')
+    def add_meetup(self, id, location, createdOn, images, topics, happeningOn, tags ):
+        ''' This method saves a meetup into a dictionary '''
+        payload = {
+            "id" : len(self.db) + 1,
+            "location" : location,
+            "createdOn" : createdOn,
+            "images" : images,
+            "topics" : topics,
+            "happeningOn" : happeningOn,
+            "tags" : tags
         }
-
-        self.db.append(data)
-        return self.id
-
-    def get_all(self):
+        self.db.append(payload)
         return self.db
