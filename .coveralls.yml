@@ -1,0 +1,3 @@
+pip install coveralls
+coverage run --source=mypkg setup.py test
+coveralls
