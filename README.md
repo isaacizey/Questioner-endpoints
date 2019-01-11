@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.com/isaacizey/Questioner-endpoints.svg?branch=develop)](https://travis-ci.com/isaacizey/Questioner-endpoints)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/270ba701286a85bbbc78/maintainability)](https://codeclimate.com/github/isaacizey/Questioner-endpoints/maintainability)
 # Framework 
 Python 3.6, Flask
 
