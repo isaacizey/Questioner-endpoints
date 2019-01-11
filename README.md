@@ -1,5 +1,7 @@
 # Questioner-endpoints
 
+[![Build Status](https://travis-ci.com/isaacizey/Questioner-endpoints.svg?branch=develop)](https://travis-ci.com/isaacizey/Questioner-endpoints)
+
 Create API that power front end pages for questioner apllication
 The api should :
  Create a meetup record.
