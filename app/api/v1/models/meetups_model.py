@@ -1,4 +1,7 @@
+
+
 Meetups = [] 
+
 
 class MeetupModel(object):
     '''models for meetups class'''
@@ -19,3 +22,21 @@ class MeetupModel(object):
         }
         self.db.append(payload)
         return self.db
+
+    def single_meetup(self, meetup_id):
+        """ This method returns a meetup which has the secified id"""
+        if len(Meetups) == 0:
+            return False
+        for meetup in Meetups:
+            if meetup["meetup_id"] == meetup_id:
+                return meetup
+
+    def all_meetups(self):
+        """This method to gets all meetups"""
+
+        if len(Meetups) == 0:
+            return False
+        return Meetups
+
+    
+
