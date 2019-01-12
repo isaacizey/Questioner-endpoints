@@ -1,6 +1,3 @@
-from flask import Flask
 from flask import Blueprint
-from app.api.v1.views.meetup_views import meetup
-app = Flask(__name__)
 
-app.register_blueprint(app)
+version1 = Blueprint("version1", __name__, url_prefix="/api/v1")

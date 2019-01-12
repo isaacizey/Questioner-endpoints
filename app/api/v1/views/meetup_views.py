@@ -1,27 +1,45 @@
 """ meetup views"""
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, make_response
 from app.api.v1.models.meetups_model import MeetupModel
+from app.api.v1 import version1
 from app.api.v1.models.meetups_model import Meetups
 from flask import Flask, request, jsonify
 
+from app.api.v1.models import meetups_model
+
 db = MeetupModel()
 
-MEETUP = Blueprint('MEETUP', __name__)
 
-@MEETUP.route('/meetups', methods=['POST'])
-def create_user():
+
+@version1.route("/meetups", methods=["POST"])
+def create_meetup():
+    """ Post meetups """
     data = request.get_json()
 
+    if not data:
+        return jsonify({
+            'message': "Please fill in all fields!",
+            'status': 401
+            })
+    new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], data['happeningOn'],data['happeningOn'],data['happeningOn'],data['happeningOn'])
+    return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_meetup})
 
-    print(data) 
 
-    id = data['id']
-    location = data['location']
-    createdOn = data['createdOn']
-    images = data['images']
-    topics = data['topics']
-    happeningOn = data['happeningOn']
-    tags = data['tags']
-    data = db.add_meetup(id, location, createdOn, images, topics, happeningOn, tags )
-   
-    return jsonify({'status' : 200,'message' : 'meetup created'})
+@version1.route("/meetups", methods=["GET"])
+def all_meetups():
+    """ Returns all meetups"""
+    meetups = meetups_model.Meetups
+
+    if meetups: 
+        return jsonify({"status": 200, "data" : meetups})
+    return jsonify({"status" : 404,"message" : "Sorry, we could not find any meetups" })
+
+
+@version1.route("/meetups/<int:meetup_id>", methods = ["GET"])
+def single_meetup(meetup_id):
+    """Gets the meetup with id specified"""
+    meetup = meetups_model.MeetupModel().single_meetup(meetup_id)
+
+    if meetup:
+        return jsonify({"status" : 200, "data" : meetup})
+    return jsonify({"status" : 404, "message" :"No meetup found with matching id" })
