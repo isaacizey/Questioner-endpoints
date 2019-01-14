@@ -28,17 +28,7 @@ Create API that power front end pages for questioner apllication
 - Rsvp for a meetup
 
 ** API **
-| Endpoint | Functionality |
-----------|---------------
-GET /index | View all questions and answers
-POST /auth/signup | Register a user
-POST /auth/login | Login a user
-GET /questions | Fetch all questions
-GET /questions/&lt;questionID&gt; | Fetch a specific question
-POST /questions | Post a question
-DELETE /questions/&lt;questionID&gt; | Delete a question
-POST /questions/&lt;questionID&gt;/answers | Post an answer to a question
-PUT /questions/&lt;questionID&gt;/answers/&lt;answerId&gt; | Mark an answer as accepted, or edit an answer
+
 
 # Installation and Deployment
 1. clone the github repository
