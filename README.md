@@ -8,6 +8,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/270ba701286a85bbbc78/maintainability)](https://codeclimate.com/github/isaacizey/Questioner-endpoints/maintainability)
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/67f511c2733e7897b812/test_coverage)](https://codeclimate.com/github/Gichia/questioner/test_coverage)
+
+[![Coverage Status](https://coveralls.io/repos/github/isaacizey/Questioner-endpoints/badge.svg)](https://coveralls.io/github/isaacizey/Questioner-endpoints)
+
 # Framework 
 
 Python 3.6, Flask
