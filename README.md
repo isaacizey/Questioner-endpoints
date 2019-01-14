@@ -3,17 +3,11 @@
 [![Build Status](https://travis-ci.com/isaacizey/Questioner-endpoints.svg?branch=develop)](https://travis-ci.com/isaacizey/Questioner-endpoints)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<<<<<<< HEAD
 
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/270ba701286a85bbbc78/maintainability)](https://codeclimate.com/github/isaacizey/Questioner-endpoints/maintainability)
-||||||| merged common ancestors
-=======
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/270ba701286a85bbbc78/maintainability)](https://codeclimate.com/github/isaacizey/Questioner-endpoints/maintainability)
-
-
->>>>>>> cbdbf62acac951ab5321b0a0ed60c8c435199092
+[![Test Coverage](https://api.codeclimate.com/v1/badges/67f511c2733e7897b812/test_coverage)](https://codeclimate.com/github/Gichia/questioner/test_coverage)
 # Framework 
 
 Python 3.6, Flask
@@ -32,6 +26,19 @@ Create API that power front end pages for questioner apllication
 - Get all meetup records.
 - Upvote or downvote a question.
 - Rsvp for a meetup
+
+** API **
+| Endpoint | Functionality |
+----------|---------------
+GET /index | View all questions and answers
+POST /auth/signup | Register a user
+POST /auth/login | Login a user
+GET /questions | Fetch all questions
+GET /questions/&lt;questionID&gt; | Fetch a specific question
+POST /questions | Post a question
+DELETE /questions/&lt;questionID&gt; | Delete a question
+POST /questions/&lt;questionID&gt;/answers | Post an answer to a question
+PUT /questions/&lt;questionID&gt;/answers/&lt;answerId&gt; | Mark an answer as accepted, or edit an answer
 
 # Installation and Deployment
 1. clone the github repository

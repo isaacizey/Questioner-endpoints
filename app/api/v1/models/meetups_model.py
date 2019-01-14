@@ -1,7 +1,14 @@
 
 
-Meetups = [] 
-
+Meetups = [{"meetup_id": 1,
+            "location": "Safari Park", 
+            "topics": "Tech teach us", 
+            "happeningOn": "3/9/2019",
+            "tags": "Ai, machine learning",
+            "happeningOn": "3/9/2019",
+            "happeningOn": "3/9/2019",
+            "happeningOn": "3/9/2019"}]
+meetup_id = 0
 
 class MeetupModel(object):
     '''models for meetups class'''
@@ -23,14 +30,13 @@ class MeetupModel(object):
         self.db.append(payload)
         return self.db
 
-    def single_meetup(self, meetup_id):
-        """ This method returns a meetup which has the secified id"""
+    def get_single_meetup(self, meetup_id):
+        """Method to get a specific meetup"""
         if len(Meetups) == 0:
             return False
         for meetup in Meetups:
             if meetup["meetup_id"] == meetup_id:
                 return meetup
-
     def all_meetups(self):
         """This method to gets all meetups"""
 
