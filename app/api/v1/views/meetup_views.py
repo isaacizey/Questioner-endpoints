@@ -21,7 +21,8 @@ def create_meetup():
             'message': "Please fill in all fields!",
             'status': 401
             })
-    new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], data['happeningOn'],data['happeningOn'],data['happeningOn'],data['happeningOn'])
+    new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], 
+                data['happeningOn'],data['happeningOn'],data['happeningOn'],data['happeningOn'])
     return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_meetup})
 
 
@@ -35,11 +36,11 @@ def all_meetups():
     return jsonify({"status" : 404,"message" : "Sorry, we could not find any meetups" })
 
 
-@version1.route("/meetups/<int:meetup_id>", methods = ["GET"])
-def single_meetup(meetup_id):
-    """Gets the meetup with id specified"""
-    meetup = meetups_model.MeetupModel().single_meetup(meetup_id)
+@version1.route("/meetups/<int:meetup_id>", methods=["GET"])
+def get_single_meetup(meetup_id):
+    """ Gets specific meetup """
+    meetup = meetups_model.MeetupModel().get_single_meetup(meetup_id)
 
     if meetup:
-        return jsonify({"status" : 200, "data" : meetup})
-    return jsonify({"status" : 404, "message" :"No meetup found with matching id" })
+        return jsonify({"status": 200, "data": meetup})
+    return jsonify({"status": 404, "message": "No meetup found!"})

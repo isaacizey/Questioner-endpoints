@@ -8,6 +8,7 @@ APP = create_app()
 
 all_meetups_url = 'http://localhost:5000/api/v1/meetups'
 specific_meetup_url = 'http://localhost:5000/api/v1/meetups/1'
+meetup_id = 1 
 
 class TestMeetups(unittest.TestCase):
     """This Class will test all meetup endpoints """
@@ -24,7 +25,7 @@ class TestMeetups(unittest.TestCase):
             "meetup_id": 1,
             "location": "Safari Park", 
             "topics": "Tech teach us", 
-            "happeningOn": "3/9/2019", 
+            "happeningOn": "3/9/2019",
             "tags": "Ai, machine learning"
             }
         response = self.app.post(all_meetups_url, data=json.dumps(data), content_type="application/json")
@@ -34,6 +35,25 @@ class TestMeetups(unittest.TestCase):
         self.assertEqual(output["message"], "New meetup created successfully!")
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
+
+    def test_specific_meetup(self):
+            """Method to test get specific meetup endpoint"""
+            test_data = {
+           
+            "location": "Safari Park", 
+            "topics": "Tech teach us", 
+            "happeningOn": "3/9/2019",
+            "tags": "Ai, machine learning"
+            }
+            self.app.post(all_meetups_url, data=json.dumps(test_data), content_type="application/json")
+            results = self.app.get(specific_meetup_url)
+            result1 = json.loads(results.data.decode("UTF-8"))
+
+            self.assertEqual(result1["status"], 200)
+            self.assertEqual(results.status_code, 200)
+            self.assertEqual(results.status, "200 OK")
+            self.assertTrue(results.content_type == "application/json")
+
 
     
 
