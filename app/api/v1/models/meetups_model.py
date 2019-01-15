@@ -1,4 +1,4 @@
-
+import datetime
 
 Meetups = [ {"meetup_id": 1,
             "location": "Safari Park", 
@@ -16,7 +16,7 @@ class MeetupModel(object):
     def __init__(self):
         self.db = Meetups
 
-    def add_meetup(self, id, location, createdOn, images, topics, happeningOn, tags ):
+    def add_meetup(self, id, location, createdOn, images, topics, tags ):
         ''' This method saves a meetup into a dictionary '''
         payload = {
             "meetup_id" : len(self.db) + 1,
@@ -24,7 +24,7 @@ class MeetupModel(object):
             "createdOn" : createdOn,
             "images" : images,
             "topics" : topics,
-            "happeningOn" : happeningOn,
+            "happeningOn" : datetime.datetime.now(),
             "tags" : tags
         }
         self.db.append(payload)
