@@ -44,3 +44,4 @@ def get_single_meetup(meetup_id):
     if meetup:
         return jsonify({"status": 200, "data": meetup})
     return jsonify({"status": 404, "message": "No meetup found!"})
+

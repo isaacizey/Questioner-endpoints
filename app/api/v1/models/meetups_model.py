@@ -1,13 +1,13 @@
 
 
-Meetups = [{"meetup_id": 1,
+Meetups = [ {"meetup_id": 1,
             "location": "Safari Park", 
             "topics": "Tech teach us", 
             "happeningOn": "3/9/2019",
             "tags": "Ai, machine learning",
             "happeningOn": "3/9/2019",
             "happeningOn": "3/9/2019",
-            "happeningOn": "3/9/2019"}]
+            "happeningOn": "3/9/2019"} ]
 meetup_id = 0
 
 class MeetupModel(object):
@@ -19,7 +19,7 @@ class MeetupModel(object):
     def add_meetup(self, id, location, createdOn, images, topics, happeningOn, tags ):
         ''' This method saves a meetup into a dictionary '''
         payload = {
-            "id" : len(self.db) + 1,
+            "meetup_id" : len(self.db) + 1,
             "location" : location,
             "createdOn" : createdOn,
             "images" : images,
@@ -43,6 +43,3 @@ class MeetupModel(object):
         if len(Meetups) == 0:
             return False
         return Meetups
-
-    
-
