@@ -25,17 +25,22 @@ def post_questions():
         })
     new_question = questions_models.QuestionsModel().add_question(data['meetup'], data['title'], 
                 data['body'])
-    return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_question})
+    return jsonify({"status": 201, "message": "Question created successfully!", "data": new_question})
 
 @version1.route("/question/<question_id>", methods=["GET"])
-def get_single_question(self, question_id):
+def get_single_question(question_id):
 
     """ This get a single question """
-    question = questions_models.QuestionsModel().single_question(self)
+    question = questions_models.QuestionsModel().single_question(question_id)
     if question:
         return jsonify ({
             'status': 200, 'data' : question
         })
+    return jsonify({"status": 404, "message": "No meetup found!"})
+
+
+
+
 
 @version1.route("/questions/<question_id>/upvote", methods=["PATCH"])
 def upvote_question(self, question_id):
@@ -44,7 +49,7 @@ def upvote_question(self, question_id):
 
     if len(Questions) == 0: 
         return False 
-    my_question = get_single_question(self, question_id)
+    my_question = get_single_question(question_id)
     if my_question:
         my_question["votes"] += 1
         return my_question
