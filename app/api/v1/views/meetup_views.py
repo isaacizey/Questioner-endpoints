@@ -45,3 +45,17 @@ def get_single_meetup(meetup_id):
         return jsonify({"status": 200, "data": meetup})
     return jsonify({"status": 404, "message": "No meetup found!"})
 
+@version1.route("/meetups/upcoming", methods = ["GET"])
+def get_upcomming_meetups():
+    """ This returns a list of all the upcomming meetups """
+
+    upcomming_meetups = meetups_model.MeetupModel().get_upcomming_meetups()
+    if upcomming_meetups : 
+        return jsonify({"status": 200, "data": upcomming_meetups})
+    return jsonify({"status": 404, "message": "No upcomming found!"})
+
+
+
+
+    
+

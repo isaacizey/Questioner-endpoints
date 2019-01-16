@@ -5,7 +5,7 @@ Questions = [
             "meetup_id": "be the best you there can be",
             "title": "Rehumanizing humans",
             "user": 1,
-            "votes": 1
+            "votes": 0
         }
 ]
 user = 1

@@ -43,7 +43,7 @@ def get_single_question(question_id):
 
 
 @version1.route("/questions/<question_id>/upvote", methods=["PATCH"])
-def upvote_question(self, question_id):
+def upvote_question(question_id):
     """ Views for upvoting a question """
     data = request.get_json()
 
@@ -51,21 +51,24 @@ def upvote_question(self, question_id):
         return False 
     my_question = get_single_question(question_id)
     if my_question:
-        my_question["votes"] += 1
-        return my_question
+         return jsonify ({
+            'status': 201, 'message' : "vote added"
+        })
+        
     return False
 
 @version1.route("/questions/<question_id>/downvote", methods=["PATCH"])
-def downvote_question(self, question_id):
+def downvote_question(question_id):
     """ Views for upvoting a question """
     data = request.get_json()
 
     if len(Questions) == 0: 
         return False 
-    my_question = self.get_single_question(question_id)
+    my_question = get_single_question(question_id)
     if my_question:
-        my_question["votes"] -= 1
-        return my_question
+        return jsonify ({
+            'status': 201, 'message' : "vote subtracted successfully!"
+        })
     return False
 
 

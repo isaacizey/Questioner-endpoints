@@ -1,13 +1,17 @@
 import datetime
+from datetime import datetime as dt
+
+
+
 
 Meetups = [ {"meetup_id": 1,
             "location": "Safari Park", 
             "topics": "Tech teach us", 
-            "happeningOn": "3/9/2019",
+            "happeningOn": '2019-03-19',
             "tags": "Ai, machine learning",
-            "happeningOn": "3/9/2019",
-            "happeningOn": "3/9/2019",
-            "happeningOn": "3/9/2019"} ]
+            "happeningOn": "2019-03-19",
+            "happeningOn": "2019-03-19",
+            "happeningOn": "2019-03-19"} ]
 meetup_id = 0
 
 class MeetupModel(object):
@@ -24,7 +28,7 @@ class MeetupModel(object):
             "createdOn" : createdOn,
             "images" : images,
             "topics" : topics,
-            "happeningOn" : datetime.datetime.now(),
+            "happeningOn" : datetime.datetime.now().strftime('%Y-%m-%d'),
             "tags" : tags
         }
         self.db.append(payload)
@@ -38,8 +42,21 @@ class MeetupModel(object):
             if meetup["meetup_id"] == meetup_id:
                 return meetup
     def all_meetups(self):
-        """This method to gets all meetups"""
+        """This method returns a list of all meetups"""
 
         if len(Meetups) == 0:
             return False
         return Meetups
+   
+
+    def get_upcomming_meetups(self):
+        """ This methods returns a list of all the upcomming meetups """
+        
+        upcomming_meetups = []
+        if len(Meetups) == 0:
+            return False
+        for meetup in Meetups:
+            event_date = dt.strptime(meetup["happeningOn"], "%Y-%m-%d")
+            if event_date > datetime.datetime.now():
+                upcomming_meetups.append(meetup)
+        return upcomming_meetups
