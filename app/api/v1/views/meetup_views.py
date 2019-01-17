@@ -13,66 +13,101 @@ db = MeetupModel()
 
 @version1.route("/meetups", methods=["POST"])
 def create_meetup():
-    """ Post meetups """
-    data = request.get_json()
+    try:
+        """ Post meetups """
+        data = request.get_json()
 
-    if not data:
+        if not data:
+            return jsonify({
+                'message': "Please fill in all fields!",
+                'status': 401
+                })
+        new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], 
+                    data['happeningOn'],data['happeningOn'],data['happeningOn'])
+        return jsonify({"status": 201, "message": "your account has been created successfully!", "data": new_meetup})
+    except Exception as e:
+
         return jsonify({
-            'message': "Please fill in all fields!",
-            'status': 401
-            })
-    new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], 
-                data['happeningOn'],data['happeningOn'],data['happeningOn'])
-    return jsonify({"status": 201, "message": "your account has been created successfully!", "data": new_meetup})
+                    'message': "Unknown error!",
+                    'status': 401
+                    })
 
 
 @version1.route("/meetups", methods=["GET"])
 def all_meetups():
-    """ Returns all meetups"""
-    meetups = meetups_model.Meetups
+    try:
+        """ Returns all meetups"""
+        meetups = meetups_model.Meetups
 
-    if meetups: 
-        return jsonify({"status": 200, "data" : meetups})
-    return jsonify({"status" : 404,"message" : "Sorry, we could not find any meetups" })
+        if meetups: 
+            return jsonify({"status": 200, "data" : meetups})
+        return jsonify({"status" : 404,"message" : "Sorry, we could not find any meetups" })
+    except Exception as e:
+
+        return jsonify({
+                    'message': "Unknown error!",
+                    'status': 401
+                    })
 
 
 @version1.route("/meetups/<int:meetup_id>", methods=["GET"])
 def get_single_meetup(meetup_id):
-    """ Gets specific meetup """
-    meetup = meetups_model.MeetupModel().get_single_meetup(meetup_id)
+    try:
+        """ Gets specific meetup """
+        meetup = meetups_model.MeetupModel().get_single_meetup(meetup_id)
 
-    if meetup:
-        return jsonify({"status": 200, "data": meetup})
-    return jsonify({"status": 404, "message": "No meetup found!"})
+        if meetup:
+            return jsonify({"status": 200, "data": meetup})
+        return jsonify({"status": 404, "message": "No meetup found!"})
+    except Exception as e:
+
+        return jsonify({
+                    'message': "Unknown error!",
+                    'status': 401
+                    })
 
 @version1.route("/meetups/upcoming", methods = ["GET"])
 def get_upcomming_meetups():
-    """ This returns a list of all the upcomming meetups """
+    try:
+        """ This returns a list of all the upcomming meetups """
 
-    upcomming_meetups = meetups_model.MeetupModel().get_upcomming_meetups()
-    if upcomming_meetups : 
-        return jsonify({"status": 200, "data": upcomming_meetups})
-    return jsonify({"status": 404, "message": "No upcomming found!"})
+        upcomming_meetups = meetups_model.MeetupModel().get_upcomming_meetups()
+        if upcomming_meetups : 
+            return jsonify({"status": 200, "data": upcomming_meetups})
+        return jsonify({"status": 404, "message": "No upcomming found!"})
+    except Exception as e:
+
+        return jsonify({
+                    'message': "Unknown error!",
+                    'status': 401
+                    })
 
 
 @version1.route("/meetups/<int:meetup_id>/rsvps", methods = ["POST"])
 def post_rsvp(meetup_id):
     """This method creates rsvp for a meetup"""
-    data = request.get_json()
-    if not data:
-        return jsonify({
-            'message': "Please fill in all fields!",
-            'status': 401
-            })
-    
     try:
+        data = request.get_json()
+        if not data:
+            return jsonify({
+                'message': "Please fill in all fields!",
+                'status': 401
+                })
+        
+        try:
 
 
-        rsvp = meetups_model.MeetupModel().rsvp_meetup(data["meetup_id"], data["topic"], data["status"])
-        return jsonify({"status":201, "message":"RSVP created successfuly!", "data" : rsvp })
+            rsvp = meetups_model.MeetupModel().rsvp_meetup(data["meetup_id"], data["topic"], data["status"])
+            return jsonify({"status":201, "message":"RSVP created successfuly!", "data" : rsvp })
 
-    except :
-        return jsonify({'message': "Please fill in all fields!",'status': 401})
+        except :
+            return jsonify({'message': "Please fill in all fields!",'status': 401})
+    except Exception as e:
+
+        return jsonify({
+                    'message': "Unknown error!",
+                    'status': 401
+                    })
         
     
     
