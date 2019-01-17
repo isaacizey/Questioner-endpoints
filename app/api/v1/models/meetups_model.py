@@ -13,7 +13,7 @@ Meetups = [ {"meetup_id": 1,
             "happeningOn": "2019-03-19",
             "happeningOn": "2019-03-19"} ]
 meetup_id = 0
-
+RSVP = []
 class MeetupModel(object):
     '''models for meetups class'''
 
@@ -60,3 +60,23 @@ class MeetupModel(object):
             if event_date > datetime.datetime.now():
                 upcomming_meetups.append(meetup)
         return upcomming_meetups
+
+        
+    def rsvp_meetup(self, meetup_id, topics, status):
+        """ This method returns an RSVP for a given meetup """
+    
+        for meetup in Meetups:
+            if meetup["meetup_id"]== meetup_id:
+               data =  {
+                   "meetup" : meetup_id,
+                   "topic" : topics,
+                   "status" : status
+               }
+            RSVP.append(data)
+            return RSVP
+            
+
+
+        
+
+        

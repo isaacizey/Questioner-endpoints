@@ -48,14 +48,14 @@ def upvote_question(question_id):
     data = request.get_json()
 
     if len(Questions) == 0: 
-        return False 
+        return jsonify({"status": 404, "message": "No questions found!"})
     my_question = get_single_question(question_id)
     if my_question:
          return jsonify ({
             'status': 201, 'message' : "vote added"
         })
         
-    return False
+    return jsonify({"status": 404, "message": "Can't find question"})
 
 @version1.route("/questions/<question_id>/downvote", methods=["PATCH"])
 def downvote_question(question_id):
@@ -63,13 +63,13 @@ def downvote_question(question_id):
     data = request.get_json()
 
     if len(Questions) == 0: 
-        return False 
+        return jsonify({"status": 404, "message": "No questions found!"})
     my_question = get_single_question(question_id)
     if my_question:
         return jsonify ({
             'status': 201, 'message' : "vote subtracted successfully!"
         })
-    return False
+    return jsonify({"status": 404, "message": "Specified question was not found!"})
 
 
 
