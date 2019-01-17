@@ -63,7 +63,7 @@ def user_register():
         elif validate.string_validate(data["last_name"]) == False:
             jsonify({'message': 'Last Name must be a string'})
         
-        new_user = users_models.UserModels().user_registration(user_name=data['user_name'],
+        new_user = users_models.UserModels().user_registration(data['user_name'],
         data['first_name'],data['last_name'],data['password'])
 
         return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_user})
