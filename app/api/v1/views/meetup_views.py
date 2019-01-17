@@ -24,7 +24,7 @@ def create_meetup():
                 })
         new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], 
                     data['happeningOn'],data['happeningOn'],data['happeningOn'])
-        return jsonify({"status": 201, "message": "your account has been created successfully!", "data": new_meetup})
+        return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_meetup})
     except Exception as e:
 
         return jsonify({
@@ -46,7 +46,7 @@ def all_meetups():
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
 
 
@@ -63,7 +63,7 @@ def get_single_meetup(meetup_id):
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
 
 @version1.route("/meetups/upcoming", methods = ["GET"])
@@ -79,7 +79,7 @@ def get_upcomming_meetups():
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
 
 
@@ -91,7 +91,7 @@ def post_rsvp(meetup_id):
         if not data:
             return jsonify({
                 'message': "Please fill in all fields!",
-                'status': 401
+                'status': 404
                 })
         
         try:
@@ -101,12 +101,12 @@ def post_rsvp(meetup_id):
             return jsonify({"status":201, "message":"RSVP created successfuly!", "data" : rsvp })
 
         except :
-            return jsonify({'message': "Please fill in all fields!",'status': 401})
+            return jsonify({'message': "Please fill in all fields!",'status': 404})
     except Exception as e:
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
         
     
