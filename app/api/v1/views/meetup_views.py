@@ -23,7 +23,7 @@ def create_meetup():
             })
     new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], 
                 data['happeningOn'],data['happeningOn'],data['happeningOn'])
-    return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_meetup})
+    return jsonify({"status": 201, "message": "your account has been created successfully!", "data": new_meetup})
 
 
 @version1.route("/meetups", methods=["GET"])

@@ -1,7 +1,8 @@
 from flask import Flask
 from app.api.v1.views.meetup_views import version1 as v1
 from app.api.v1.views.questions_view import version1 as v1
-from app.api.v1.views.user_views import version1 as v1 
+from app.api.v1.views.user_views import version1 as v1
+from flask import jsonify
 
 def create_app():
     app = Flask(__name__)

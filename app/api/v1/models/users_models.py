@@ -22,14 +22,14 @@ class UserModels(object):
             "email" : email,
             "password" : password
         }
-    def user_registration(self,user_name,last_name, email,password,first_name  ):
+    def user_registration(self, user_name, last_name, email, password, first_name ):
         """ This method implement the users registration  models  """
         user_payload = {
-            "user_name" : user_name,
-            "first_name" : first_name,
-            "last_name" : last_name,
-            "email" : email,
-            "password" : password
+            'user_name' : user_name,
+            'first_name' : first_name,
+            'last_name' : last_name,
+            'email' : email,
+            'password' : password
         }
         self.db.append(user_payload)
         return self.db
