@@ -23,7 +23,7 @@ def create_meetup():
             })
     new_meetup = meetups_model.MeetupModel().add_meetup(data['location'], data['tags'], data['topics'], 
                 data['happeningOn'],data['happeningOn'],data['happeningOn'])
-    return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_meetup})
+    return jsonify({"status": 201, "message": "your account has been created successfully!", "data": new_meetup})
 
 
 @version1.route("/meetups", methods=["GET"])
@@ -55,7 +55,27 @@ def get_upcomming_meetups():
     return jsonify({"status": 404, "message": "No upcomming found!"})
 
 
-
-
+@version1.route("/meetups/<int:meetup_id>/rsvps", methods = ["POST"])
+def post_rsvp(meetup_id):
+    """This method creates rsvp for a meetup"""
+    data = request.get_json()
+    if not data:
+        return jsonify({
+            'message': "Please fill in all fields!",
+            'status': 401
+            })
     
+    try:
+
+
+        rsvp = meetups_model.MeetupModel().rsvp_meetup(data["meetup_id"], data["topic"], data["status"])
+        return jsonify({"status":201, "message":"RSVP created successfuly!", "data" : rsvp })
+
+    except :
+        return jsonify({'message': "Please fill in all fields!",'status': 401})
+        
+    
+    
+
+
 
