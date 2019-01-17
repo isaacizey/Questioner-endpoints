@@ -8,36 +8,36 @@ validate = validations.Validations()
 @version1.route("/auth/login", methods=["POST", "GET"]) 
 
 def user_login():
-    """ This method implements login views """
     try:
 
-        """ Method for user login """
+        """ This method implements login views """
+
         data = request.get_json()
 
-        
+            
         if not data:
             return jsonify({
-                'message': "Please fill in all data!",
-                'status': 401
-                })
+                    'message': "Please fill in all data!",
+                    'status': 404
+                    })
         elif data["email"] == "email" and data["password"] == "password":
             return jsonify({"status": 201, "message": "Authenticstion successful !"})
 
         elif data["email"] == "" or data["password"] == "":
             return jsonify({
-                'message': "Please fill in all fields!",
-                'status': 401
-                })
+                    'message': "Please fill in all fields!",
+                    'status': 404
+                    })
         else:
-            
+                
             return jsonify({
-                'message': "Unknown error!",
-                'status': 401
-                })
+                    'message': "Unknown error!",
+                    'status': 404
+                    })
     except Exception as e:
         return jsonify({
                 'message': "Unknown error!",
-                'status': 401
+                'status': 404
                 })
 
 @version1.route("auth/register", methods = ["POST"])
@@ -49,7 +49,7 @@ def user_register():
         if not data:
                 return jsonify({
                     'message': "All fields are required!",
-                    'status': 401
+                    'status': 404
                     })
         
         if validate.email_validate(data["email"]) == False:
@@ -63,8 +63,7 @@ def user_register():
         elif validate.string_validate(data["last_name"]) == False:
             jsonify({'message': 'Last Name must be a string'})
         
-        new_user = users_models.UserModels().user_registration(data['user_name'],
-        data['first_name'],data['last_name'],data['password'])
+        
 
         return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_user})
 
@@ -73,7 +72,7 @@ def user_register():
     except Exception as e:
         return jsonify({
                 'message': "Unknown error!",
-                'status': 401
+                'status': 404
                 })
 
 
@@ -83,5 +82,5 @@ def user_register():
 def UnknownRequest(e):
     return jsonify({
                 'message': "Unknown error!",
-                'status': 401
+                'status': 404
                 })

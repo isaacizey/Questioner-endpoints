@@ -25,7 +25,7 @@ def post_questions():
                 if not data:
                     return jsonify({
                         'message' : "Could not find any data, probably left some fields empty",
-                        'status' : 401
+                        'status' : 404
                     })
                 new_question = questions_models.QuestionsModel().add_question(data['meetup'], data['title'], 
                             data['body'])
@@ -38,7 +38,7 @@ def post_questions():
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
 
 @version1.route("/question/<question_id>", methods=["GET"])
@@ -56,7 +56,7 @@ def get_single_question(question_id):
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
 
 
@@ -83,7 +83,7 @@ def upvote_question(question_id):
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
 
 @version1.route("/questions/<question_id>/downvote", methods=["PATCH"])
@@ -106,7 +106,7 @@ def downvote_question(question_id):
 
         return jsonify({
                     'message': "Unknown error!",
-                    'status': 401
+                    'status': 404
                     })
 
 
