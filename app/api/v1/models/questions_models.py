@@ -1,8 +1,8 @@
 Questions = [
      {
             "body ": "Is this happening tomorow ?",
-            "id": 1,
-            "meetup_id": "be the best you there can be",
+            "question_id": 1,
+            "meetup_id": 1,
             "title": "Rehumanizing humans",
             "user": 1,
             "votes": 0
@@ -20,21 +20,20 @@ class QuestionsModel():
         if len(Questions) == 0:
             return False
         for question in Questions:
-            if question["id"] == question_id:
+            if question["question_id"] == question_id:
                 return question
             return False   
 
-    def add_question(self, meetup_id, title, body):
+    def add_question(self, meetup_id, title,body_text):
         
         """ Questioner endpoints for questions """
         output =  {
-                "id" : len(self.db) + 1,
                 "user" : user,
+                "question_id" : len(self.db) + 1,
                 "meetup_id" : meetup_id,
                 "title" : title,
-                "body " : body,
-                "votes" : votes
-            }
+                "body_text" : body_text
+        }
             
         self.db.append(output)
         return self.db
