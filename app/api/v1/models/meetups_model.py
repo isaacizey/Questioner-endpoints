@@ -13,22 +13,28 @@ Meetups = [ {"meetup_id": 1,
             "happeningOn": "2019-03-19",
             "happeningOn": "2019-03-19"} ]
 meetup_id = 0
-RSVP = []
+RSVP = [
+    {
+                   "meetup" : "meetup_id",
+                   "topic" : "topics",
+                   "status" : "status"
+               }
+]
 class MeetupModel(object):
     '''models for meetups class'''
 
     def __init__(self):
         self.db = Meetups
-
-    def add_meetup(self, id, location, createdOn, images, topics, tags ):
+       
+    def add_meetup(self, id, location, happeningOn, images, topics, tags ):
         ''' This method saves a meetup into a dictionary '''
         payload = {
             "meetup_id" : len(self.db) + 1,
             "location" : location,
-            "createdOn" : createdOn,
+            "createdOn" : datetime.datetime.now().strftime('%Y-%m-%d'),
             "images" : images,
             "topics" : topics,
-            "happeningOn" : datetime.datetime.now().strftime('%Y-%m-%d'),
+            "happeningOn" :happeningOn,
             "tags" : tags
         }
         self.db.append(payload)
@@ -62,19 +68,29 @@ class MeetupModel(object):
         return upcomming_meetups
 
         
-    def rsvp_meetup(self, meetup_id, topics, status):
+    
+            
+class RSVPModel(object):
+    '''models for RSVP class'''
+
+    def __init__(self):
+        self.db2 = RSVP
+
+    def rsvp_meetup(self, meetup_id, topic, status):
         """ This method returns an RSVP for a given meetup """
     
         for meetup in Meetups:
-            if meetup["meetup_id"]== meetup_id:
+            if meetup["meetup_id"] == meetup_id:
+               return meetup
                data =  {
-                   "meetup" : meetup_id,
-                   "topic" : topics,
-                   "status" : status
-               }
-            RSVP.append(data)
-            return RSVP
-            
+               "meetup" : meetup_id,
+                "topic" : topic,
+              "status" : status
+             }
+            self.db2.append(data)
+            return self.db2
+
+
 
 
         

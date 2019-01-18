@@ -80,6 +80,41 @@ class TestMeetups(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
 
+def test_specific_meetup(self):
+            """Method to test get specific meetup endpoint"""
+            
+            self.app.post(all_meetups_url, data=json.dumps(test_data), content_type="application/json")
+            results = self.app.get(specific_meetup_url)
+            result1 = json.loads(results.data.decode("UTF-8"))
+
+            self.assertEqual(result1["status"], 200)
+            self.assertEqual(results.status_code, 200)
+            self.assertEqual(results.status, "200 OK")
+            self.assertTrue(results.content_type == "application/json")
+    
+    def test_creating_meetup(self):
+        """ This method tests adding a new meetup record """
+
+        response = self.app.post(new_meet_url, data=json.dumps(test_data), content_type="application/json")
+        result = json.loads(response.data.decode("UTF-8"))
+
+        self.assertEqual(result["message"], "New meetup created successfully!")
+        self.assertEqual(result["status"], 201)
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue(response.content_type == "application/json")
+
+    
+    def test_upcomming_meetups(self):
+        """ This method test all the upcomming meetups """    
+
+        response = self.app.get(upcomming_meetups_url, data=json.dumps(test_data), content_type="application/json")
+        result = json.loads(response.data.decode("UTF-8"))
+
+        
+        self.assertEqual(result["status"], 200)
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue(response.content_type == "application/json")
+
 
 
     

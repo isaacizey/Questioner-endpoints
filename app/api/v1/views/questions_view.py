@@ -16,34 +16,34 @@ votes = 0
 @version1.route("/questions", methods=["POST"])
 
 def post_questions():
-    try:
-                """ Get questions on a spcific meetup """
-
-            
-                data = request.get_json()
-
-                if not data:
-                    return jsonify({
-                        'message' : "Could not find any data, probably left some fields empty",
-                        'status' : 404
-                    })
-                new_question = questions_models.QuestionsModel().add_question(data['meetup'], data['title'], 
-                            data['body'])
-                return jsonify({"status": 201, "message": "Question created successfully!", "data": new_question})
     
-        
-            
+    """ Get questions on a spcific meetup """
+    try:
+    
+        data = request.get_json()
 
+        if not data:
+            return jsonify({
+                            'message' : "Could not find any data, probably left some fields empty",
+                            'status' : 404
+                        })
+        new_question = questions_models.QuestionsModel().add_question(data['meetup_id'],
+            data['title'],data['body_text'])
+
+        return jsonify({"status": 201, "message": "Question created successfully!", "data": new_question})
     except Exception as e:
-
         return jsonify({
                     'message': "Unknown error!",
                     'status': 404
                     })
 
-@version1.route("/question/<question_id>", methods=["GET"])
+    
+   
+
+
+@version1.route("/question/<int:question_id>", methods=["GET"])
 def get_single_question(question_id):
-    try:
+   
 
         """ This get a single question """
         question = questions_models.QuestionsModel().single_question(question_id)
@@ -51,40 +51,27 @@ def get_single_question(question_id):
             return jsonify ({
                 'status': 200, 'data' : question
             })
-        return jsonify({"status": 404, "message": "No meetup found!"})
-    except Exception as e:
-
-        return jsonify({
-                    'message': "Unknown error!",
-                    'status': 404
-                    })
-
+        return jsonify({"status": 404, "message": "No question found!"})
+    
 
 
 
 
 @version1.route("/questions/<question_id>/upvote", methods=["PATCH"])
 def upvote_question(question_id):
-    try:
+    #try:
         """ Views for upvoting a question """
-        data = request.get_json()
-
-        if len(Questions) == 0: 
-            return jsonify({"status": 404, "message": "No questions found!"})
-        my_question = get_single_question(question_id)
+        
+               
+        my_question = questions_models.QuestionsModel().upvote_question(question_id)
         if my_question:
             return jsonify ({
-                'status': 201, 'message' : "vote added"
+                'status': 201, 'message' : my_question
             })
             
         return jsonify({"status": 404, "message": "Can't find question"})
     
-    except Exception as e:
-
-        return jsonify({
-                    'message': "Unknown error!",
-                    'status': 404
-                    })
+    
 
 @version1.route("/questions/<question_id>/downvote", methods=["PATCH"])
 def downvote_question(question_id):
