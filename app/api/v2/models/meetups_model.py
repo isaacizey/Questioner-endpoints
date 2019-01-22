@@ -1,25 +1,12 @@
 import datetime
 from datetime import datetime as dt
 
+  conn = get_connection()
+  db_cursor = conn.cursor()
+  db_cursor.execute(post_data())
+    
+    conn.commit()
 
-
-
-Meetups = [ {"meetup_id": 1,
-            "location": "Safari Park", 
-            "topics": "Tech teach us", 
-            "happeningOn": '2019-03-19',
-            "tags": "Ai, machine learning",
-            "happeningOn": "2019-03-19",
-            "happeningOn": "2019-03-19",
-            "happeningOn": "2019-03-19"} ]
-meetup_id = 0
-RSVP = [
-    {
-                   "meetup" : "meetup_id",
-                   "topic" : "topics",
-                   "status" : "status"
-               }
-]
 class MeetupModel(object):
     '''models for meetups class'''
 
@@ -27,18 +14,22 @@ class MeetupModel(object):
         self.db = Meetups
        
     def add_meetup(self, id, location, happeningOn, images, topics, tags ):
+
         ''' This method saves a meetup into a dictionary '''
-        payload = {
-            "meetup_id" : len(self.db) + 1,
-            "location" : location,
-            "createdOn" : datetime.datetime.now().strftime('%Y-%m-%d'),
-            "images" : images,
-            "topics" : topics,
-            "happeningOn" :happeningOn,
-            "tags" : tags
-        }
-        self.db.append(payload)
-        return self.db
+        self.id = id
+        self.location = location
+        self.happeningOn = happeningOn
+        self.images = images
+        self.topics = topics
+        self.tags = tags
+
+       
+        query = """
+                INSERT INTO table_name ('id', 'location', 'happenningOn', 'images', 'topics', 
+                'tags')VALUES('{}','{}','{}');""".format(self.id,self.location, self.happeningOn,
+                 self.images, self.topics )
+        
+        return query
 
     def get_single_meetup(self, meetup_id):
         """Method to get a specific meetup"""

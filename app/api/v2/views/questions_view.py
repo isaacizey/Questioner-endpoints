@@ -1,19 +1,19 @@
 """ Views for questions """
 
 from flask import Blueprint, make_response
-from app.api.v1.models.questions_models import Questions
-from app.api.v1.models import questions_models
-from app.api.v1.models.questions_models import QuestionsModel
-from app.api.v1 import version1
+from app.api.v2.models.questions_models import Questions
+from app.api.v2.models import questions_models
+from app.api.v2.models.questions_models import QuestionsModel
+from app.api.v2 import version2
 from flask import Flask, request, jsonify
 
-from app.api.v1.models import meetups_model
+from app.api.v2.models import meetups_model
 db = QuestionsModel()
 question_id = 1
 votes = 0 
 
 
-@version1.route("/questions", methods=["POST"])
+@version2.route("/questions", methods=["POST"])
 
 def post_questions():
     
@@ -41,7 +41,7 @@ def post_questions():
    
 
 
-@version1.route("/question/<int:question_id>", methods=["GET"])
+@version2.route("/question/<int:question_id>", methods=["GET"])
 def get_single_question(question_id):
    
 
@@ -57,7 +57,7 @@ def get_single_question(question_id):
 
 
 
-@version1.route("/questions/<question_id>/upvote", methods=["PATCH"])
+@version2.route("/questions/<question_id>/upvote", methods=["PATCH"])
 def upvote_question(question_id):
     #try:
         """ Views for upvoting a question """
@@ -73,7 +73,7 @@ def upvote_question(question_id):
     
     
 
-@version1.route("/questions/<question_id>/downvote", methods=["PATCH"])
+@version2.route("/questions/<question_id>/downvote", methods=["PATCH"])
 def downvote_question(question_id):
 
     try:

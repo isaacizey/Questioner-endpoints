@@ -1,11 +1,11 @@
 from flask import Blueprint, make_response, request, jsonify
 from ..models import users_models
-from .. import version1 
-from  app.api.v1.utils import validations
+from .. import version2 
+from  app.api.v2.utils import validations
 
 validate = validations.Validations()
 
-@version1.route("/auth/login", methods=["POST", "GET"]) 
+@version2.route("/auth/login", methods=["POST", "GET"]) 
 
 def user_login():
     try:
@@ -40,7 +40,7 @@ def user_login():
                 'status': 404
                 })
 
-@version1.route("auth/register", methods = ["POST"])
+@version2.route("auth/register", methods = ["POST"])
 def user_register():
 
     try:
@@ -78,7 +78,7 @@ def user_register():
 
     
 
-@version1.errorhandler(404)
+@version2.errorhandler(404)
 def UnknownRequest(e):
     return jsonify({
                 'message': "Unknown error!",

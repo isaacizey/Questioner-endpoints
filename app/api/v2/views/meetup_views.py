@@ -1,17 +1,17 @@
 """ meetup views"""
 from flask import Blueprint, make_response
-from app.api.v1.models.meetups_model import MeetupModel
-from app.api.v1 import version1
-from app.api.v1.models.meetups_model import Meetups
+from app.api.v2.models.meetups_model import MeetupModel
+from app.api.v2 import version2
+from app.api.v2.models.meetups_model import Meetups
 from flask import Flask, request, jsonify
 
-from app.api.v1.models import meetups_model
+from app.api.v2.models import meetups_model
 
 db = MeetupModel()
 
 
 
-@version1.route("/meetups", methods=["POST"])
+@version2.route("/meetups", methods=["POST"])
 def create_meetup():
     try:
         """ Post meetups """
@@ -36,7 +36,7 @@ def create_meetup():
 
        
 
-@version1.route("/meetups", methods=["GET"])
+@version2.route("/meetups", methods=["GET"])
 def all_meetups():
     try:
         """ Returns all meetups"""
@@ -53,7 +53,7 @@ def all_meetups():
                     })
 
 
-@version1.route("/meetups/<int:meetup_id>", methods=["GET"])
+@version2.route("/meetups/<int:meetup_id>", methods=["GET"])
 def get_single_meetup(meetup_id):
     try:
         """ Gets specific meetup """
@@ -69,7 +69,7 @@ def get_single_meetup(meetup_id):
                     'status': 404
                     })
 
-@version1.route("/meetups/upcoming", methods = ["GET"])
+@version2.route("/meetups/upcoming", methods = ["GET"])
 def get_upcomming_meetups():
     try:
         """ This returns a list of all the upcomming meetups """
@@ -86,7 +86,7 @@ def get_upcomming_meetups():
                     })
 
 
-@version1.route("/meetups/<int:meetup_id>/rsvps", methods = ["POST"])
+@version2.route("/meetups/<int:meetup_id>/rsvps", methods = ["POST"])
 def post_rsvp(meetup_id):
     """This method creates rsvp for a meetup"""
     data = request.get_json()
