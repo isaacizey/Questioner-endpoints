@@ -3,9 +3,10 @@ from datetime import datetime as dt
 
   conn = get_connection()
   db_cursor = conn.cursor()
-  db_cursor.execute(post_data())
+ 
+ meetups = []
     
-    conn.commit()
+   
 
 class MeetupModel(object):
     '''models for meetups class'''
@@ -26,13 +27,18 @@ class MeetupModel(object):
        
         query = """
                 INSERT INTO table_name ('id', 'location', 'happenningOn', 'images', 'topics', 
-                'tags')VALUES('{}','{}','{}');""".format(self.id,self.location, self.happeningOn,
+                'tags')VALUES('{}','{}','{}','{}','{}','{}');""".format(self.id,self.location, self.happeningOn,
                  self.images, self.topics )
+
+        db_cursor.execute(query)
+        conn.commit()
         
-        return query
+        
 
     def get_single_meetup(self, meetup_id):
         """Method to get a specific meetup"""
+
+        meetup.append
         if len(Meetups) == 0:
             return False
         for meetup in Meetups:
