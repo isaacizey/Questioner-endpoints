@@ -4,8 +4,9 @@ import app.db_connect as connection
 import psycopg2 as psycopg
 from flask import jsonify
 
-conn = connection.get_connection()
-db_cursor = conn.cursor()
+db_conn = connection.get_connection()
+
+db_cursor = db_conn.cursor()
 
 
     
@@ -27,9 +28,15 @@ class MeetupModel(object):
 
     
         query = """
-                INSERT INTO meetupstable (meetup_location, meetup_happening_on, 
+                INSERT INTO MEETUPSTABLE (meetup_location, meetup_happening_on, 
                 meetup_topic, meetup_tags)VALUES('{}','{}','{}','{}');""".format(location, 
                 happeningOn,topic, tags)
+
+        
+
+        conn = connection.get_connection()
+        db_cursor = conn.cursor()
+        db_cursor.execute(query)
 
         payload = {
            
@@ -40,7 +47,7 @@ class MeetupModel(object):
         }
         
 
-        db_cursor.execute(query)
+
         return payload
         
         

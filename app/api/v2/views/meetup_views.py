@@ -23,8 +23,8 @@ def create_meetup():
                 })
         
 
-        new_meetup = MeetupModel.add_meetup(data['meetup_location'], data['happeningOn'], 
-        data['topics'], data['tags'], data['tags'])
+        new_meetup =meetups_model.MeetupModel().add_meetup(data['meetup_location'], data['meetup_happeningOn'], 
+        data['meetup_topics'],  data['tags'])
         return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_meetup})
 
         

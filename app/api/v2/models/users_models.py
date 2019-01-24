@@ -18,25 +18,26 @@ class UserModels(object):
     def user_login(self, user_name, password):
 
         """ This method imlements user registration endpoints """
-        auth = request.authorization
-        if not auth or not auth.user_name or not auth.password:
-            return make_response('Could not verify', 401, 
-            {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
-        user = User.query.filter_by(name=auth.username).first()
+        sql = "SELECT * FROM USERSTABLE"
 
-        if not user:
-            return make_response('Could not verify', 401, 
-            {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+        db_cursor.execute(sql)
+        users_result = db_cursor.fetchall()
+        users = []
 
-        if check_password_hash(user.password, auth.password):
-            
-            token = jwt.encode({'user_name': user_name, 
-            'exp' : datetime.datetime.utcnow() + 
-            datetime.timedelta(minutes=60)}, SECRET_KEY,  algorithm='HS256')
-            return jsonify({'token' : token.decode('UTF-8')})
-        return make_response('Could not verify', 401, 
-        {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
+        for user_value in users_result:
+            user_value = {
+                
+                "location" : user_value[0],
+                "happeningOn" : user_value[1],
+                "topics" : user_value[2]
+
+            }
+            users.append(user_value)
+
+        return users
+       
 
             
     
@@ -59,10 +60,10 @@ class UserModels(object):
         }
 
         db_cursor.execute(query)
+        conn.commit()
         return user_payload
 
        
-
 
        
 
