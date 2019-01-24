@@ -15,4 +15,5 @@ class TestingConfig(Config):
 app_config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
+    'DB_URL' : os.getenv("DATABASE_URL")
 }
