@@ -2,14 +2,11 @@ import os
 import psycopg2 as psycopg
 
 
-def connection():
-    """ This method connects to the database """
-    conn = psycopg.connect("dbname='moses' host='127.0.0.1' user='moses' password='12345678'")
-    return conn
-
 def get_connection():
-    db = connection()
-    return db 
+    conn = psycopg.connect(""" dbname='questionerdb' host='127.0.0.1' 
+            user='postgres' password='12345678'""")
+    
+    return conn 
 
 def create_table():
     conn = get_connection()
@@ -36,11 +33,12 @@ def my_tables ():
     """ Table creation queries are implemented here """
 
     """ creates meetups table """
-    meetups_table = """CREATE TABLE IF NOT EXISTS MEETUPS (
-         
+    meetups_table = """CREATE TABLE IF NOT EXISTS MEETUPSTABLE (
+        meetup_id SERIAL PRIMARY KEY,
         meetup_topic VARCHAR(50) NOT NULL,
         meetup_happening_on VARCHAR(50) NOT NULL, 
-        meetup_location VARCHAR(50) NOT NULL
+        meetup_location VARCHAR(50) NOT NULL,
+        meetup_tags VARCHAR(50) NOT NULL
          ) """
 
     questions_table = """CREATE TABLE IF NOT EXISTS QUESTIONS (
