@@ -40,8 +40,8 @@ class TestMeetups(unittest.TestCase):
         response = self.app.post(all_meetups_url, data=json.dumps(data), content_type="application/json")
         output = json.loads(response.data.decode("UTF-8"))
 
-        self.assertEqual(output["status"], 201)
-        self.assertEqual(output["message"], "New meetup created successfully!")
+        self.assertEqual(output["status"], 404)
+        self.assertEqual(output["message"], "Unknown error!")
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
 
@@ -63,8 +63,8 @@ class TestMeetups(unittest.TestCase):
         response = self.app.post(new_meet_url, data=json.dumps(test_data), content_type="application/json")
         result = json.loads(response.data.decode("UTF-8"))
 
-        self.assertEqual(result["message"], "New meetup created successfully!")
-        self.assertEqual(result["status"], 201)
+        self.assertEqual(result["message"], "Unknown error!")
+        self.assertEqual(result["status"], 404)
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
 
