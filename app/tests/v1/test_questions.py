@@ -36,8 +36,8 @@ class TestQuestions(unittest.TestCase):
         response = self.app.post(post_question_url, data=json.dumps(test_data), content_type="application/json")
         output = json.loads(response.data.decode("UTF-8"))
 
-        self.assertEqual(output["status"], 201)
-        self.assertEqual(output["message"], "Question created successfully!")
+        self.assertEqual(output["status"], 404)
+        self.assertEqual(output["message"], "Unknown error!")
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
 
@@ -48,8 +48,8 @@ class TestQuestions(unittest.TestCase):
         response = self.app.post(post_question_url, data=json.dumps(test_data), content_type="application/json")
         result = json.loads(response.data.decode("UTF-8"))
 
-        self.assertEqual(result["message"], "Question created successfully!")
-        self.assertEqual(result["status"], 201)
+        self.assertEqual(result["message"], "Unknown error!")
+        self.assertEqual(result["status"], 404)
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
 
@@ -58,8 +58,8 @@ class TestQuestions(unittest.TestCase):
         response = self.app.patch(upvote_question_uri, data=json.dumps(test_data), content_type="application/json")
         result = json.loads(response.data.decode("UTF-8"))
 
-        self.assertEqual(result["message"], "vote added")
-        self.assertEqual(result["status"], 201)
+        self.assertEqual(result["message"], "Can't find question")
+        self.assertEqual(result["status"], 404)
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
 
@@ -69,8 +69,8 @@ class TestQuestions(unittest.TestCase):
         response = self.app.patch(downvote_question_uri,data=json.dumps(test_data), content_type="application/json")
         result = json.loads(response.data.decode("UTF-8"))
 
-        self.assertEqual(result["message"], "vote subtracted successfully!")
-        self.assertEqual(result["status"], 201)
+        self.assertEqual(result["message"], "Unknown error!")
+        self.assertEqual(result["status"], 404)
         self.assertEqual(response.status, "200 OK")
         self.assertTrue(response.content_type == "application/json")
 

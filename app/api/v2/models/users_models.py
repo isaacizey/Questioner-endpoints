@@ -48,7 +48,7 @@ class UserModels(object):
         first_name ):
         """ This method implement the users registration  models  """
 
-        query = """ INSERT INTO USERS (user_name, first_name, last_name, email,
+        query = """ INSERT INTO USERS (username, firstname, lastname, email,
         password)VALUES('{}','{}','{}','{}','{}'); """ .format(user_name, 
         last_name, email, generate_password_hash(password), first_name)
         user_payload = {

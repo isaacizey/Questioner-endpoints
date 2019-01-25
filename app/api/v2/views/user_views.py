@@ -36,7 +36,7 @@ def requires_token(f):
 
     return decorated
 
-@version2.route("/auth/login", methods=["POST", "GET"]) 
+@version2.route("/auth/login", methods=["POST"]) 
 
 def user_login():
     #try:
@@ -65,7 +65,7 @@ def user_login():
 @version2.route("auth/register", methods = ["POST"])
 def user_register():
 
-    try:
+    #try:
         data =  request.get_json()
 
         if not data:
@@ -79,23 +79,18 @@ def user_register():
         elif validate.string_validate(data["user_name"]) == False:
             jsonify({'message': 'Username must be a string'})
         
-        elif validate.string_validate(data["first_name"]) == False:
-            jsonify({'message': 'First name must be a string'})
-
+       
         elif validate.string_validate(data["last_name"]) == False:
             jsonify({'message': 'Last Name must be a string'})
         
         
-
+        new_user = users_models.UserModels().user_registration(data["user_name"],
+         data["last_name"],data["email"],data["password"], data["first_name"])
         return jsonify({"status": 201, "message": "New meetup created successfully!", "data": new_user})
 
         
     
-    except Exception as e:
-        return jsonify({
-                'message': "Unknown error!",
-                'status': 404
-                })
+   
 
 
     

@@ -42,7 +42,7 @@ def my_tables ():
          ) """
 
     questions_table = """CREATE TABLE IF NOT EXISTS QUESTIONS (
-        question_id INT NOT NULL, 
+        question_id SERIAL NOT NULL, 
         meetup_id INT NOT NULL,
         question_body VARCHAR(50) NOT NULL,
         question_title VARCHAR(50) NOT NULL,
@@ -53,14 +53,32 @@ def my_tables ():
 
     user_table = """CREATE TABLE IF NOT EXISTS USERS (
         user_id SERIAL PRIMARY KEY, 
-        username VARCHAR(50) NOT NULL,
-        firstname VARCHAR(50) NOT NULL,
-        lastname VARCHAR(50) NOT NULL, 
-        email VARCHAR(50) NOT NULL,
-        password VARCHAR(50) NOT NULL 
-      )"""
+        username VARCHAR(150) NOT NULL,
+        firstname VARCHAR(150) NOT NULL,
+        lastname VARCHAR(150) NOT NULL, 
+        email VARCHAR(150) NOT NULL,
+        password VARCHAR(150) NOT NULL 
+      )""" 
 
-    tables = [meetups_table, questions_table, user_table]
+    rsvp_table = """ CREATE TABLE IF NOT EXISTS RSVPSTABLE(
+        rsvp_id SERIAL PRIMARY KEY, 
+        id INTEGER NOT NULL,
+        topic VARCHAR(20) NOT NULL,
+        status VARCHAR(50) NOT NULL
+    ) """
+
+    comment_table = """ CREATE TABLE IF NOT EXISTS COMMENTS(
+        comment_id SERIAL PRIMARY KEY,
+        question VARCHAR(100) NOT NULL, 
+        body VARCHAR(100) NOT NULL,
+        title VARCHAR(100) NOT NULL,
+        comment VARCHAR(100) NOT NULL
+
+    )
+    
+    """
+
+    tables = [meetups_table, questions_table, user_table, rsvp_table, comment_table]
     return tables 
 
 def post_data():
