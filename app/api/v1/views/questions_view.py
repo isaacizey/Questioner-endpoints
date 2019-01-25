@@ -85,7 +85,7 @@ def downvote_question(question_id):
         my_question = get_single_question(question_id)
         if my_question:
             return jsonify ({
-                'status': 201, 'message' : "vote subtracted successfully!"
+                'status': 200, 'message' : my_question
             })
         return jsonify({"status": 404, "message": "Specified question was not found!"})
     

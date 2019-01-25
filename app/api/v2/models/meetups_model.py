@@ -24,20 +24,15 @@ class MeetupModel(object):
     def add_meetup(self, location, happeningOn, topic, tags ):
 
         ''' This method saves a meetup into a dictionary '''
-    
 
-    
         query = """
                 INSERT INTO MEETUPSTABLE (meetup_location, meetup_happening_on, 
-                meetup_topic, meetup_tags)VALUES('{}','{}','{}','{}');""".format(location, 
+                meetup_topic, meetup_tags)VALUES('{}','{}','{}','{}');
+                """.format(location, 
                 happeningOn,topic, tags)
 
-        
-
-        conn = connection.get_connection()
-        db_cursor = conn.cursor()
         db_cursor.execute(query)
-
+        db_conn.commit()
         payload = {
            
             "location" : location,
@@ -45,20 +40,13 @@ class MeetupModel(object):
             "happeningOn" :happeningOn,
             "tags" : tags
         }
-        
-
-
+    
         return payload
-        
-        
-        
+     
 
     def get_single_meetup(self, meetup_id):
         """Method to get a specific meetup"""
 
-    
-        
-    
         meetups = self.all_meetups()
         for meetup in meetups:
             if len(meetups) == 0:
@@ -71,19 +59,20 @@ class MeetupModel(object):
         """This method returns a list of all meetups"""
 
         
-        sql = "SELECT * FROM MEETUPS"
+        sql = "SELECT * FROM MEETUPSTABLE"
 
         db_cursor.execute(sql)
         meetups_result = db_cursor.fetchall()
         meetups = []
 
-
         for meetup_value in meetups_result:
             meetup_value = {
                 
-                "location" : meetup_value[0],
-                "happeningOn" : meetup_value[1],
-                "topics" : meetup_value[2]
+                "id" : meetup_value[0],
+                "location" : meetup_value[1],
+                "happeningOn" : meetup_value[2],
+                "tags" : meetup_value[3],
+                "topics" : meetup_value[4],
 
             }
             meetups.append(meetup_value)
@@ -102,10 +91,7 @@ class MeetupModel(object):
             if event_date > datetime.datetime.now():
                 upcomming_meetups.append(meetup)
         return upcomming_meetups
-
         
-    
-            
 class RSVPModel(object):
     '''models for RSVP class'''
 
@@ -115,21 +101,22 @@ class RSVPModel(object):
 
     def rsvp_meetup(self, meetup_id, topic, status):
         """ This method returns an RSVP for a given meetup """
-    
-        """ for meetup in Meetups:
-            if meetup["meetup_id"] == meetup_id:
-                return meetup
-            data =  {
-            "meetup" : meetup_id,
+       
+        meetups = MeetupModel.all_meetups()
+        for meetup in meetups:
+            if meetup["id"] == meetup_id:
+                sql = """INSERT INTO RSVPSTABLE(id, topic, status)VALUES('{}',
+                '{}', '{}');""".format(meetup_id, topic, status)
+                data =  {
+                "meetup" : meetup_id,
                 "topic" : topic,
-            "status" : status
-            }
-            self.db2.append(data)
-            return self.db2 """
+                "status" : status
+                }
+            db_cursor.execute(sql)
+            db_conn.commit()
+            
+                
+            return data
+            
 
-
-
-
-        
-
-        
+    
